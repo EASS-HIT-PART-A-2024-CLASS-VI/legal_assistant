@@ -8,14 +8,13 @@ from src.utils.logger import setup_logging
 setup_logging()
 logger = logging.getLogger(__name__)
 
-
-
+logger.info("Initializing App")
 
 app = FastAPI(title="Legal assistant service")
 
 
 bearer_scheme = HTTPBearer()
-g
+
 
 @app.get("/")
 async def redirect_to_docs():
