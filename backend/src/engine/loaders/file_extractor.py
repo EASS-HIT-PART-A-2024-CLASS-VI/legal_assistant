@@ -1,5 +1,6 @@
 import logging
 from abc import ABC, abstractmethod
+
 from docx import Document as DocxDocument
 from fastapi import UploadFile
 from pypdf import PdfReader
