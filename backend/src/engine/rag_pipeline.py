@@ -1,7 +1,5 @@
 from llama_index.core import Document
-from llama_index.embeddings.gemini import GeminiEmbedding
-from llama_index.llms.gemini import Gemini
-from src.engine.knowledge_graph import KnowledgeGraphIndex
+from src.engine.knowledge_graph import KnowledgeGraphCreator
 from src.engine.llm_client_factory import get_client, get_embedding_client
 from src.engine.prompts import (
     kg_triplets_extract_template,
@@ -10,10 +8,11 @@ from src.engine.prompts import (
 )
 from src.env import configuration
 
+
 class RagPipeline:
     def __init__(self):
-        self.llm = Gemini(model="models/gemini-1.5-flash", api_key=GOOGLE_API_KEY)
-        self.embed_model = GeminiEmbedding(model_name="models/gemini-1.5-flash", api_key=GOOGLE_API_KEY)
+        self.llm = get_client()
+        self.embed_model = get_embedding_client()
 
     @staticmethod
     def _create_documents(documents):
@@ -28,15 +27,16 @@ class RagPipeline:
         return rag_documents
 
     def handle(self, documents, graph_name):
-        self._create_documents(documents)
-        knowledge_graph = KnowledgeGraphIndex(
+        rag_documents = self._create_documents(documents)
+        KnowledgeGraphCreator(
             url=configuration.falkordb_uri,
             graph_name=graph_name,
-            embedding_model=get_embedding_client(),
-            information_extraction_llm=get_client(),
+            embedding_model=self.embed_model,
+            information_extraction_llm=self.llm,
             text_qa_template=text_qa_template,
             kg_triplets_extract_template=kg_triplets_extract_template,
             refine_template=refine_template,
             max_triplets_per_chunk=10,
             scheme_validation=False,
+            documents=rag_documents,
         )

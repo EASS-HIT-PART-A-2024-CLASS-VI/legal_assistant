@@ -1,24 +1,17 @@
 import logging
-from typing import List, Optional, Type
+from typing import List, Literal, Optional
 
-from llama_index.core import Document, PromptTemplate, PropertyGraphIndex, Response
+from llama_index.core import Document, PromptTemplate, PropertyGraphIndex
 from llama_index.core.base.embeddings.base import BaseEmbedding
-from llama_index.core.indices.property_graph import (
-    BasePGRetriever,
-    LLMSynonymRetriever,
-    SchemaLLMPathExtractor,
-    VectorContextRetriever,
-)
-from llama_index.embeddings.gemini import GeminiEmbedding
+from llama_index.core.indices.property_graph import SchemaLLMPathExtractor
 from llama_index.graph_stores.falkordb import FalkorDBPropertyGraphStore
-from llama_index.llms.gemini import Gemini
 from src.utils.logger import setup_logging
 
 setup_logging()
 logger = logging.getLogger(__name__)
 
 
-class KnowledgeGraphIndex:
+class KnowledgeGraphIndexBase:
     def __init__(
         self,
         url: str,
@@ -40,9 +33,7 @@ class KnowledgeGraphIndex:
         self.kg_triplets_extract_template = kg_triplets_extract_template
         self.max_triplets_per_chunk = max_triplets_per_chunk
         self.documents = documents
-        self.kg_index = self.get_kg_index()
         self.scheme_validation = scheme_validation
-        self.update_kg_docs(documents=documents)
 
     @staticmethod
     def _connect(graph_name: str, url: str) -> FalkorDBPropertyGraphStore:
@@ -52,17 +43,39 @@ class KnowledgeGraphIndex:
         except Exception as e:
             logger.error(f"failed to connect db - {e}")
 
-    def get_kg_index(
-        self,
-    ) -> Type[PropertyGraphIndex]:
-        return PropertyGraphIndex
 
-    def update_kg_docs(
+class KnowledgeGraphCreator(KnowledgeGraphIndexBase):
+    def __init__(
+        self,
+        url: str,
+        graph_name: str,
+        information_extraction_llm,
+        text_qa_template: PromptTemplate,
+        refine_template: PromptTemplate,
+        kg_triplets_extract_template: PromptTemplate,
+        max_triplets_per_chunk: int,
+        scheme_validation: bool,
+        embedding_model: BaseEmbedding,
+        documents,
+    ) -> None:
+
+        super().__init__(
+            url,
+            graph_name,
+            information_extraction_llm,
+            text_qa_template,
+            refine_template,
+            kg_triplets_extract_template,
+            max_triplets_per_chunk,
+            scheme_validation,
+            embedding_model,
+        )
+        self.create_kg(documents=documents)
+
+    def create_kg(
         self,
         documents: List[Document],
     ) -> None:
-
-        from typing import Literal
 
         entities_scheme = Literal[""]
         relations_scheme = Literal[""]
@@ -81,12 +94,48 @@ class KnowledgeGraphIndex:
             strict=self.scheme_validation,
         )
         kg_index_kwargs = {
-            "documents": documents,
-            "llm": self.information_extraction_llm,
-            "kg_extractors": [kg_extractor],
-            "property_graph_store": self.graph_store,
-            "embed_model": self.embedding_model,
             "embed_kg_nodes": True,
-            "show_progress": True,
         }
-        self.kg_index = self.kg_index.from_documents(**kg_index_kwargs)
+        PropertyGraphIndex.from_documents(
+            documents,
+            embed_model=self.embedding_model,
+            kg_extractors=[kg_extractor],
+            property_graph_store=self.graph_store,
+            show_progress=True,
+            kwargs=kg_index_kwargs,
+        )
+
+
+class KnowledgeGraphRetriever(KnowledgeGraphIndexBase):
+    def __init__(
+        self,
+        url: str,
+        graph_name: str,
+        information_extraction_llm,
+        text_qa_template: PromptTemplate,
+        refine_template: PromptTemplate,
+        kg_triplets_extract_template: PromptTemplate,
+        max_triplets_per_chunk: int,
+        scheme_validation: bool,
+        embedding_model: BaseEmbedding,
+    ):
+        super().__init__(
+            url,
+            graph_name,
+            information_extraction_llm,
+            text_qa_template,
+            refine_template,
+            kg_triplets_extract_template,
+            max_triplets_per_chunk,
+            scheme_validation,
+            embedding_model,
+        )
+        self.retrieve_kg_index()
+
+    def retrieve_kg_index(self):
+        return PropertyGraphIndex.from_existing(
+            property_graph_store=self.graph_store,
+            llm=self.information_extraction_llm,
+            embed_model=self.embedding_model,
+            embed_kg_nodes=True,
+        )
