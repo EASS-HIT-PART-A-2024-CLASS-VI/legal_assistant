@@ -6,7 +6,7 @@ from fastapi import UploadFile
 from pypdf import PdfReader
 from src.utils.api_error_response import ApiErrorException
 from src.utils.logger import setup_logging
-from src.utils.status import HTTP_500_INTERNAL_SERVER_ERROR
+from starlette.status import HTTP_500_INTERNAL_SERVER_ERROR
 
 setup_logging()
 logger = logging.getLogger(__name__)
