@@ -1,9 +1,10 @@
 import logging
+
 from fastapi import FastAPI
 from fastapi.security import HTTPBearer
-from starlette.responses import RedirectResponse
-
+from src.api.cases import router as cases_router
 from src.utils.logger import setup_logging
+from starlette.responses import RedirectResponse
 
 setup_logging()
 logger = logging.getLogger(__name__)
@@ -14,6 +15,7 @@ app = FastAPI(title="Legal assistant service")
 
 
 bearer_scheme = HTTPBearer()
+app.include_router(cases_router.router)
 
 
 @app.get("/")
