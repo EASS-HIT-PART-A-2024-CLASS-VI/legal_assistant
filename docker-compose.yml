@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  falkordb:
+    image: falkordb/falkordb:edge
+    ports:
+      - "6379:6379"
+      - "3000:3000"
+    volumes:
+      - falkordb-data:/data
+    environment:
+      - REDIS_ARGS=--requirepass falkordb
+
+  backend:
+    build:
+      context: ./backend
+    container_name: backend
+    ports:
+      - "8000:8000"
+    environment:
+      - FALKORDB_URI=redis://:falkordb@falkordb:6379
+    depends_on:
+      - falkordb
+
+volumes:
+  falkordb-data:
+    driver: local

@@ -1,5 +1,5 @@
 from llama_index.core import Document
-from src.engine.knowledge_graph import KnowledgeGraphCreator
+from src.engine.knowledge_graph import KnowledgeGraphConfig, KnowledgeGraphCreator
 from src.engine.llm_client_factory import get_client, get_embedding_client
 from src.engine.prompts import (
     kg_triplets_extract_template,
@@ -28,7 +28,7 @@ class RagPipeline:
 
     def handle(self, documents, graph_name):
         rag_documents = self._create_documents(documents)
-        KnowledgeGraphCreator(
+        kg_config = KnowledgeGraphConfig(
             url=configuration.falkordb_uri,
             graph_name=graph_name,
             embedding_model=self.embed_model,
@@ -40,3 +40,4 @@ class RagPipeline:
             scheme_validation=False,
             documents=rag_documents,
         )
+        KnowledgeGraphCreator(kg_config).create_kg()
