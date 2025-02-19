@@ -34,7 +34,10 @@ class DocxExtractor(FileExtractor):
             text = "\n".join([paragraph.text for paragraph in doc.paragraphs])
             return text
         except Exception as e:
-            raise ApiErrorException(error_code=HTTP_500_INTERNAL_SERVER_ERROR, message=f"Error processing DOCX file: {e}")
+            raise ApiErrorException(
+                error_code=HTTP_500_INTERNAL_SERVER_ERROR,
+                message=f"Error processing DOCX file: {e}",
+            )
 
 
 class TxtExtractor(FileExtractor):
@@ -44,7 +47,10 @@ class TxtExtractor(FileExtractor):
             content = await self.file.read()
             return content.decode("utf-8")
         except Exception as e:
-            raise ApiErrorException(error_code=HTTP_500_INTERNAL_SERVER_ERROR, message=f"Error processing text file: {e}")
+            raise ApiErrorException(
+                error_code=HTTP_500_INTERNAL_SERVER_ERROR,
+                message=f"Error processing text file: {e}",
+            )
 
 
 class PdfExtractor(FileExtractor):
@@ -58,4 +64,7 @@ class PdfExtractor(FileExtractor):
                 text += pdf_reader.pages[page].extract_text()
             return text
         except Exception as e:
-            raise ApiErrorException(error_code=HTTP_500_INTERNAL_SERVER_ERROR, message=f"Error processing PDF file: {e}")
+            raise ApiErrorException(
+                error_code=HTTP_500_INTERNAL_SERVER_ERROR,
+                message=f"Error processing PDF file: {e}",
+            )

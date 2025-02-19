@@ -15,11 +15,15 @@ class RagRetriever:
     def __init__(
         self,
         kg_index: PropertyGraphIndex,
-        embedding_model: BaseEmbedding = GeminiEmbedding(model_name="text-embedding-3-small"),
+        embedding_model: BaseEmbedding = GeminiEmbedding(
+            model_name="text-embedding-3-small"
+        ),
     ):
         self.kg_index = kg_index
 
-    def _get_sub_retrievers(self, similarity_top_k_nodes: int) -> List[Type[BasePGRetriever]]:
+    def _get_sub_retrievers(
+        self, similarity_top_k_nodes: int
+    ) -> List[Type[BasePGRetriever]]:
         return [
             VectorContextRetriever(
                 self.graph_store,
@@ -47,9 +51,11 @@ class RagRetriever:
             ),
         ]
 
-    def query(self, question: str, response_mode: str, similarity_top_k_nodes: int) -> Response:
+    def query(self, question: str, response_mode: str, similarity_top_k_nodes: int):
         response = self.kg_index.as_query_engine(
             llm=self.retriever_llm,
-            sub_retrievers=self._get_sub_retrievers(similarity_top_k_nodes=similarity_top_k_nodes),
+            sub_retrievers=self._get_sub_retrievers(
+                similarity_top_k_nodes=similarity_top_k_nodes
+            ),
         ).query(question)
         return response

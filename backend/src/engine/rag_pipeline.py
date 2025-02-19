@@ -20,7 +20,12 @@ class RagPipeline:
         for document in documents:
             rag_document = Document(
                 text_resource=document["text"],
-                metadata={"file_name": document["file_name"], "file_type": document["file_type"], "id": document["id"], "category": "legal"},
+                metadata={
+                    "file_name": document["file_name"],
+                    "file_type": document["file_type"],
+                    "id": document["id"],
+                    "category": "legal",
+                },
                 excluded_llm_metadata_keys=["id"],
             )
             rag_documents.append(rag_document)
