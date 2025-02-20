@@ -19,11 +19,10 @@ class RagPipeline:
         rag_documents = []
         for document in documents:
             rag_document = Document(
-                text_resource=document["text"],
+                text=document["text"],
                 metadata={
                     "file_name": document["file_name"],
                     "file_type": document["file_type"],
-                    "id": document["id"],
                     "category": "legal",
                 },
                 excluded_llm_metadata_keys=["id"],

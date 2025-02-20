@@ -15,7 +15,7 @@ async def create_new_case(case_name, files):
     for file in files:
         logger.info(f"starting to process file {file.filename}")
         text = await service.extract_text_from_file(file)
-        document = { "text": text , "file_name": file.filename , 'file_type': file.content_type, 'id': uuid.uuid4() }
+        document = { "text": text , "file_name": file.filename , 'file_type': file.content_type }
         documents.append(document)
     logger.info(f'Number of Documents: {len(documents)}')
     rag_pipeline = RagPipeline()

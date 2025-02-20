@@ -2,6 +2,7 @@ import logging
 from dataclasses import dataclass
 from typing import List, Literal, Optional
 
+import nest_asyncio
 from llama_index.core import Document, PromptTemplate, PropertyGraphIndex
 from llama_index.core.base.embeddings.base import BaseEmbedding
 from llama_index.core.indices.property_graph import SchemaLLMPathExtractor
@@ -9,6 +10,7 @@ from llama_index.core.llms import LLM
 from llama_index.graph_stores.falkordb import FalkorDBPropertyGraphStore
 from src.utils.logger import setup_logging
 
+nest_asyncio.apply()
 setup_logging()
 logger = logging.getLogger(__name__)
 
@@ -64,7 +66,6 @@ class KnowledgeGraphCreator(KnowledgeGraphIndexBase):
             max_triplets_per_chunk=self.max_triplets_per_chunk,
             possible_entities=entities_scheme,
             possible_relations=relations_scheme,
-            kg_validation_schema=kg_validation_schema,
             strict=self.scheme_validation,
         )
         kg_index_kwargs = {"embed_kg_nodes": True}
