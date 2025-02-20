@@ -1,0 +1,26 @@
+### Variables setup
+@host = http://localhost:8000
+
+### Redirect to Docs
+GET {{host}}/
+Accept: application/json
+
+### Create New Case
+POST {{host}}/api/v1/cases/create_new_case
+Content-Type: multipart/form-data; boundary=WebAppBoundary
+
+--WebAppBoundary
+Content-Disposition: form-data; name="case_name"
+
+Example Case Name
+
+--WebAppBoundary
+Content-Disposition: form-data; name="files"; filename="Deposition of Emergency Room Nurse in Medical Malpractice Lawsuit.txt"
+Content-Type: text/plain
+
+< /Users/mordvash/mor/HIT/legal_assistant/backend/src/dev_env/Deposition of Emergency Room Nurse in Medical Malpractice Lawsuit.txt
+--WebAppBoundary
+
+### List all cases
+GET http://localhost:8000/api/v1/cases/list_cases
+Accept: application/json

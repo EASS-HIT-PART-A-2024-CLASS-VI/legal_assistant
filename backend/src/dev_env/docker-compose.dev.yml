@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  falkordb:
+    image: falkordb/falkordb:edge
+    ports:
+      - "6379:6379"
+      - "3000:3000"
+    volumes:
+      - falkordb-data:/data
+
+volumes:
+  falkordb-data:
+    driver: local
