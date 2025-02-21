@@ -1,31 +1,19 @@
-from typing import List, Type
-
 from llama_index.core import PropertyGraphIndex
 from llama_index.core.indices.property_graph import (
-    BasePGRetriever,
     LLMSynonymRetriever,
     VectorContextRetriever,
 )
-
-from src.engine.knowledge_graph import KnowledgeGraphIndexBase
 from src.engine.retrievers import synonyms_retriever
 
 
 class RagRetriever:
-    def __init__(
-        self,
-        kg_index: PropertyGraphIndex,
-        retriever_llm,
-        embedding_model
-    ):
+    def __init__(self, kg_index: PropertyGraphIndex, retriever_llm, embedding_model):
         self.kg_index = kg_index
         self.retriever_llm = retriever_llm
         self.graph_store = kg_index.property_graph_store
         self.embedding_model = embedding_model
 
-    def _get_sub_retrievers(
-        self, similarity_top_k_nodes: int
-    ) -> list[VectorContextRetriever | LLMSynonymRetriever]:
+    def _get_sub_retrievers(self, similarity_top_k_nodes: int) -> list[VectorContextRetriever | LLMSynonymRetriever]:
         return [
             VectorContextRetriever(
                 self.graph_store,
@@ -49,8 +37,6 @@ class RagRetriever:
         response = self.kg_index.as_query_engine(
             llm=self.retriever_llm,
             response_mode=response_mode,
-            sub_retrievers=self._get_sub_retrievers(
-                similarity_top_k_nodes=similarity_top_k_nodes
-            ),
+            sub_retrievers=self._get_sub_retrievers(similarity_top_k_nodes=similarity_top_k_nodes),
         ).query(question)
         return response

@@ -56,9 +56,7 @@ refine_template_str = (
 )
 
 refine_template = PromptTemplate(refine_template_str, prompt_type=PromptType.REFINE)
-text_qa_template = PromptTemplate(
-    text_qa_template_str, prompt_type=PromptType.QUESTION_ANSWER
-)
+text_qa_template = PromptTemplate(text_qa_template_str, prompt_type=PromptType.QUESTION_ANSWER)
 kg_triplets_extract_template = PromptTemplate(
     kg_triplet_extract_template_str, prompt_type=PromptType.KNOWLEDGE_TRIPLET_EXTRACT
 )

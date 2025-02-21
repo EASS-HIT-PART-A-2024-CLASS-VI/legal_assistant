@@ -1,5 +1,9 @@
 from llama_index.core import Document, PropertyGraphIndex
-from src.engine.knowledge_graph import KnowledgeGraphConfig, KnowledgeGraphCreator, KnowledgeGraphRetriever
+from src.engine.knowledge_graph import (
+    KnowledgeGraphConfig,
+    KnowledgeGraphCreator,
+    KnowledgeGraphRetriever,
+)
 from src.engine.llm_client_factory import get_client, get_embedding_client
 from src.engine.prompts import (
     kg_triplets_extract_template,

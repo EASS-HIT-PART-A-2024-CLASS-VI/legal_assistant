@@ -1,6 +1,5 @@
 import logging
 
-
 from src.api.cases import service
 from src.api.cases.consts import question_template
 from src.api.cases.model import RagResponseMod
@@ -11,17 +10,23 @@ from src.utils.logger import setup_logging
 setup_logging()
 logger = logging.getLogger(__name__)
 
+
 async def create_new_case(case_name, files):
     logger.debug(f"uploading files {files}")
     documents = []
     for file in files:
         logger.info(f"starting to process file {file.filename}")
         text = await service.extract_text_from_file(file)
-        document = { "text": text , "file_name": file.filename , 'file_type': file.content_type }
+        document = {
+            "text": text,
+            "file_name": file.filename,
+            "file_type": file.content_type,
+        }
         documents.append(document)
-    logger.info(f'Number of Documents: {len(documents)}')
+    logger.info(f"Number of Documents: {len(documents)}")
     rag_pipeline = RagPipeline()
     rag_pipeline.handle(documents=documents, graph_name=case_name)
+
 
 async def list_cases(db_client: FalkorDBClient):
     try:
@@ -31,9 +36,10 @@ async def list_cases(db_client: FalkorDBClient):
         return res
     except Exception as e:
         logger.error(f"Error while listing graphs {e}")
-        return  ['']
+        return [""]
 
-async def search(case_name: str, question:str, respond_mod: RagResponseMod):
+
+async def search(case_name: str, question: str, respond_mod: RagResponseMod):
     logger.info(f"Getting case - {case_name}")
     rag_pipeline = RagPipeline()
     case = rag_pipeline.get_existing_kg(case_name)

@@ -7,7 +7,6 @@ setup_logging()
 logger = logging.getLogger(__name__)
 
 
-
 class Singleton(type):
     _instances = {}
 
@@ -15,7 +14,6 @@ class Singleton(type):
         if cls not in cls._instances:
             cls._instances[cls] = super().__call__(*args, **kwargs)
         return cls._instances[cls]
-
 
 
 class FalkorDBClient(metaclass=Singleton):

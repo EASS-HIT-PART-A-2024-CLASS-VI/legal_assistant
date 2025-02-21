@@ -32,7 +32,7 @@ SUGGESTED_QUESTION = {
     "Expert Outline": """
             Act as a Legal Deposition Agent. Your goal is to create a detailed deposition outline for the next deposition with a new expert witness for the plaintiff’s case, based on all the provided documents and previous depositions.
             Instructions:
-    
+
         1.	Review Provided Materials:
         •	Thoroughly read through all documents, transcripts, and previous depositions related to the case.
         2.	Analyze for Key Information:
@@ -49,9 +49,9 @@ SUGGESTED_QUESTION = {
         6.	Prepare Follow-up Questions:
         •	Create additional questions to probe deeper into the expert witness’s responses and uncover further relevant details.
         •	Ensure these follow-up questions maintain the connection with the previous depositions and documents.
-    
+
         Example:
-    
+
         •	Introduction:
         •	Can you please state your name and professional background for the record?
         •	How long have you been working in your current field?
@@ -61,9 +61,9 @@ SUGGESTED_QUESTION = {
         •	Clarification of Contradictions:
         •	During the deposition on [Date], [Witness Name] stated [statement 1], but later mentioned [statement 2]. Can you help clarify this discrepancy?
         •	Given the data from [Document Name], how would you interpret [specific situation or fact] in light of [previous deposition statement]?
-    
+
         Additional Guidelines:
-    
+
         •	Relevance: Focus on questions that are directly relevant to the case and the expert witness’s area of expertise.
         •	Clarity: Ensure that each question is clear and concise, avoiding any ambiguity.
         •	Depth: Aim to cover not just surface-level information but also delve into deeper insights and connections.
@@ -75,7 +75,7 @@ SUGGESTED_QUESTION = {
         Act as a Legal Chronologist. Your goal is to create a detailed chain of events as described in the depositions that relate to the sequence of events involving Mr. Tolson, including dates, locations, and participants.
 
         Instructions:
-        
+
             1.	Ingest Deposition Material:
             •	Thoroughly read through all depositions and documents related to Mr. Tolson’s case.
             2.	Extract Key Events:
@@ -87,24 +87,24 @@ SUGGESTED_QUESTION = {
             5.	Generate a Timeline Graph:
             •	Create a visual representation of the events over time.
             •	Ensure the graph is visually appealing and clearly shows the sequence of events.
-        
+
         Output Format:
-        
+
             •	Table:
             •	A well-structured table listing all events with detailed justifications from the documents.
             •	Graph:
             •	A visually appealing timeline graph representing the different events over time.
-        
+
         Example:
-        
+
             | Date       | Event                             | Location          | Participants               | Justification (Quotes)                                           |
             |------------|-----------------------------------|-------------------|----------------------------|------------------------------------------------------------------|
             | 2023-01-15 | Incident at the park              | Central Park      | Mr. Tolson, Witness A      | "Mr. Tolson mentioned, 'I was in Central Park on the 15th...'"   |
             | 2023-02-10 | Meeting with Dr. Smith            | City Hospital     | Mr. Tolson, Dr. Smith      | "Dr. Smith’s deposition states, 'On February 10th, Mr. Tolson...'" |
             | 2023-03-05 | Discussion with Lawyer            | Downtown Office   | Mr. Tolson, Lawyer         | "The transcript shows, 'During our meeting on March 5th...'"     |
-            
+
             Timeline of Events Involving Mr. Tolson:
-    
+
             2023-01-15: Incident at the park
                      |
                      |
@@ -116,16 +116,16 @@ SUGGESTED_QUESTION = {
             2023-03-05: Discussion with Lawyer
 
         Additional Guidelines:
-        
+
             •	Detail-Oriented: Ensure each event is thoroughly detailed with clear and specific quotes from the documents.
             •	Accuracy: Verify all dates, locations, and participant details for accuracy.
             •	Visual Appeal: Create a graph that is not only informative but also visually appealing to enhance understanding.
                 """,
     "Entities": """
         Act as a Legal Entity Extraction Agent. Your goal is to extract all entities of location, places, people, dates (times), objects, and more from the case. Present this information in a table with the exact quote for each entity.
-    
+
         Instructions:
-    
+
         1.	Ingest Case Material:
         •	Thoroughly read through all documents and depositions related to the case.
         2.	Identify Entities:
@@ -134,22 +134,22 @@ SUGGESTED_QUESTION = {
         •	For each entity, find and record the exact quote from the documents or depositions that mentions the entity.
         4.	Create an Entity Table:
         •	Organize the extracted entities into a table with columns for Entity Type, Entity, Location in Document (e.g., page/line number or timestamp), and Exact Quote.
-    
+
         Output Format:
-    
+
         •	A well-organized table listing all entities with their types, locations in the document, and the exact quotes.
-        
+
         Example:
-        
+
         | Entity Type | Entity          | Location in Document  | Exact Quote                                                       |
         |-------------|-----------------|-----------------------|-------------------------------------------------------------------|
         | Location    | Central Park    | Page 12, Line 8       | "Mr. Tolson mentioned, 'I was in Central Park on the 15th...'"    |
         | Person      | Dr. Smith       | Page 45, Line 22      | "Dr. Smith’s deposition states, 'On February 10th, Mr. Tolson...'"|
         | Date        | 2023-01-15      | Page 12, Line 8       | "Mr. Tolson mentioned, 'I was in Central Park on the 15th...'"    |
         | Object      | Briefcase       | Page 30, Line 5       | "The briefcase contained all the documents related to the case.'" |
-        
+
         Additional Guidelines:
-    
+
         •	Comprehensive: Ensure that all relevant entities are extracted and accurately represented in the table.
         •	Precise: Verify the exact quotes and locations in the document to maintain accuracy.
         •	Clarity: Ensure the table is clear and easy to understand, with each entity properly categorized and documented.
@@ -158,7 +158,7 @@ SUGGESTED_QUESTION = {
         Act as a Legal Deposition Agent. Your goal is to create a detailed deposition outline for the questions the witness was asked, including the answers provided and suggested follow-up questions for further exploration.
 
         Instructions:
-        
+
             1.	Review Deposition Material:
             •	Thoroughly read through the deposition transcripts to extract all questions asked and the corresponding answers provided by the witness.
             2.	Document Questions and Answers:
@@ -167,21 +167,21 @@ SUGGESTED_QUESTION = {
             •	For each question and answer pair, suggest a follow-up question that aims to explore and obtain more information.
             4.	Create an Outline Table:
             •	Organize the questions, answers, and follow-up questions into a table with columns for Question, Answer, and Follow-Up Question.
-        
+
         Output Format:
-        
+
             •	A well-organized table listing all questions, answers, and suggested follow-up questions.
-        
+
         Example:
-        
+
         | Question                               | Answer                                                  | Follow-Up Question                                      |
         |----------------------------------------|---------------------------------------------------------|---------------------------------------------------------|
         | What is your relationship with Mr. X?  | Mr. X is my business partner for the past 5 years.      | Can you describe a significant project you worked on together? |
         | Where were you on the night of the 5th?| I was at home watching TV.                              | Is there anyone who can verify your presence at home?   |
         | Did you see the defendant on that day? | Yes, I saw the defendant at the cafe around noon.       | Can you describe the conversation you had with the defendant? |
-        
+
         Additional Guidelines:
-        
+
             •	Accuracy: Ensure all questions and answers are accurately transcribed from the deposition transcripts.
             •	Relevance: Suggest follow-up questions that are relevant and likely to elicit further useful information.
             •	Clarity: Ensure the table is clear and easy to understand, with each question, answer, and follow-up question properly documented.

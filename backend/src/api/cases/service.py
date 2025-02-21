@@ -1,16 +1,12 @@
 import logging
 
 from fastapi import UploadFile
-from starlette.status import HTTP_415_UNSUPPORTED_MEDIA_TYPE
-
 from src.api.cases.consts import SUGGESTED_QUESTION
+from src.engine.loaders.file_extractor import DocxExtractor, PdfExtractor, TxtExtractor
 from src.utils.api_error_response import ApiErrorException
 from src.utils.logger import setup_logging
-from src.engine.loaders.file_extractor import (
-    DocxExtractor,
-    PdfExtractor,
-    TxtExtractor,
-)
+from starlette.status import HTTP_415_UNSUPPORTED_MEDIA_TYPE
+
 setup_logging()
 logger = logging.getLogger(__name__)
 
