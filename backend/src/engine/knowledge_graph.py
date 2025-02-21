@@ -55,7 +55,7 @@ class KnowledgeGraphCreator(KnowledgeGraphIndexBase):
     def __init__(self, config: KnowledgeGraphConfig) -> None:
         super().__init__(config)
 
-    def create_kg(self) -> None:
+    def create_kg_index(self) -> None:
         entities_scheme = Literal[""]
         relations_scheme = Literal[""]
         kg_validation_schema = {"": []}  # <entity_type>: <relation_type>
@@ -82,9 +82,8 @@ class KnowledgeGraphCreator(KnowledgeGraphIndexBase):
 class KnowledgeGraphRetriever(KnowledgeGraphIndexBase):
     def __init__(self, config: KnowledgeGraphConfig) -> None:
         super().__init__(config)
-        self.retrieve_kg_index()
 
-    def retrieve_kg_index(self):
+    def retrieve_kg_index(self) -> PropertyGraphIndex:
         return PropertyGraphIndex.from_existing(
             property_graph_store=self.graph_store,
             llm=self.information_extraction_llm,

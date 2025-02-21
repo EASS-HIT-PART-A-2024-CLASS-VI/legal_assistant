@@ -3,6 +3,7 @@ import logging
 from fastapi import UploadFile
 from starlette.status import HTTP_415_UNSUPPORTED_MEDIA_TYPE
 
+from src.api.cases.consts import SUGGESTED_QUESTION
 from src.utils.api_error_response import ApiErrorException
 from src.utils.logger import setup_logging
 from src.engine.loaders.file_extractor import (
@@ -28,3 +29,12 @@ async def extract_text_from_file(file: UploadFile) -> str:
         return await extractor.extract()
     else:
         raise ApiErrorException(error_code=HTTP_415_UNSUPPORTED_MEDIA_TYPE, message="Unsupported file type")
+
+
+def get_suggested_questions(question: str) -> tuple[str, bool] | str:
+    logger.info(f"Getting suggestions for {question}")
+    suggested_question_text = SUGGESTED_QUESTION.get(question)
+    if suggested_question_text:
+        return suggested_question_text, True
+
+    return question, False

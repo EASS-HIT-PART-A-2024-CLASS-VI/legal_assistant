@@ -22,5 +22,14 @@ Content-Type: text/plain
 --WebAppBoundary
 
 ### List all cases
-GET http://localhost:8000/api/v1/cases/list_cases
+GET {{host}}/api/v1/cases/list_cases
 Accept: application/json
+
+### serach case
+POST {{host}}/api/v1/cases/Example%20Case%20Name/search
+Content-Type: application/json
+
+{
+    "question": "who is Tolson?",
+    "response_mod": "tree_summarize"
+}
