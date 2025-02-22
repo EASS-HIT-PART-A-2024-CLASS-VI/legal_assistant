@@ -1,13 +1,16 @@
 version: '3.8'
 
 services:
-  falkordb:
+  graphdb:
+    container_name: graphdb
     image: falkordb/falkordb:edge
     ports:
       - "6379:6379"
       - "3000:3000"
     volumes:
       - falkordb-data:/data
+    environment:
+      - REDIS_ARGS=--requirepass falkordb
 
 volumes:
   falkordb-data:

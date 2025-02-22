@@ -17,13 +17,13 @@ class Singleton(type):
 
 
 class FalkorDBClient(metaclass=Singleton):
-    def __init__(self, host: str = "localhost", port: int = 6379) -> None:
-        self.client = self._connect(host, port)
+    def __init__(self, host: str = "localhost", port: int = 6379, password: str = "falkordb") -> None:
+        self.client = self._connect(host, port, password)
 
-    def _connect(self, host: str, port: int) -> FalkorDB:
+    def _connect(self, host: str, port: int, password: str) -> FalkorDB:
         try:
             logger.info(f"Connecting to FalkorDB at {host}:{port}")
-            return FalkorDB(host=host, port=port)
+            return FalkorDB(host=host, port=port, password=password)
         except Exception as e:
             logger.error(f"Exception - {e}")
             raise

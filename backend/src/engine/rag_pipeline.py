@@ -38,7 +38,7 @@ class RagPipeline:
     def handle(self, documents, graph_name):
         rag_documents = self._create_documents(documents)
         kg_config = KnowledgeGraphConfig(
-            url=configuration.falkordb_uri,
+            url=configuration.falkordb_rag_uri,
             graph_name=graph_name,
             embedding_model=self.embed_model,
             information_extraction_llm=self.llm,
@@ -53,7 +53,7 @@ class RagPipeline:
 
     def get_existing_kg(self, graph_name):
         kg_config = KnowledgeGraphConfig(
-            url=configuration.falkordb_uri,
+            url=configuration.falkordb_rag_uri,
             graph_name=graph_name,
             embedding_model=self.embed_model,
             information_extraction_llm=self.llm,

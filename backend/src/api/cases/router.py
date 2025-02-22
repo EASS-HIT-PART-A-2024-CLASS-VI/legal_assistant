@@ -12,6 +12,7 @@ from src.api.cases.model import (
 from src.utils.db_client import FalkorDBClient
 from src.utils.logger import setup_logging
 from starlette.status import HTTP_200_OK, HTTP_201_CREATED
+from src.env import configuration
 
 setup_logging()
 logger = logging.getLogger(__name__)
@@ -34,7 +35,7 @@ async def create_new_case(files: List[UploadFile], case_name: str = Form(...)) -
 
 
 @router.get("/list_cases", status_code=HTTP_200_OK)
-async def list_cases(db_client=FalkorDBClient()):
+async def list_cases(db_client=FalkorDBClient(host=configuration.falkordb_host, password=configuration.falkordb_password)):
     res = await controller.list_cases(db_client)
     return CasesListOutput(cases=res)
 
