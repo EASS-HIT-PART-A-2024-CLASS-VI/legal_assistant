@@ -3,11 +3,10 @@ name = "backend"
 version = "0.1.0"
 description = ""
 authors = ["mor <mordvash1@gmail.com>"]
-readme = "README.md"
 packages = [{include = "src"}]
 
 [tool.poetry.dependencies]
-python = "^3.12"
+python = "^3.11.9"
 llama-index-core = "^0.12.10.post1"
 llama-index-readers-file = "^0.4.2"
 llama-index-llms-ollama = "^0.5.0"
