@@ -44,13 +44,6 @@ class CaseService:
         response = self.rest_client.post(endpoint, json=payload)
         return response
 
-    def get_emotion(self, text: str, case_name: str):
-        logger.info("Getting emotion")
-        endpoint = "/cases/extract_emotion"
-        payload = {"text": text, "case_name": case_name}
-        response = self.rest_client.post(endpoint, json=payload)
-        return response
-
     def delete_case(self, case_name: str):
         logger.info(f"Deleting case - {case_name}")
         endpoint = f"/graph/{case_name}"

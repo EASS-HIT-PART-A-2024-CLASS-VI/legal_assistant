@@ -772,6 +772,17 @@ carto = ["pydeck-carto"]
 jupyter = ["ipykernel (>=5.1.2)", "ipython (>=5.8.0)", "ipywidgets (>=7,<8)", "traitlets (>=4.3.2)"]
 
 [[package]]
+name = "pydub"
+version = "0.25.1"
+description = "Manipulate audio with an simple and easy high level interface"
+optional = false
+python-versions = "*"
+files = [
+    {file = "pydub-0.25.1-py2.py3-none-any.whl", hash = "sha256:65617e33033874b59d87db603aa1ed450633288aefead953b30bded59cb599a6"},
+    {file = "pydub-0.25.1.tar.gz", hash = "sha256:980a33ce9949cab2a569606b65674d748ecbca4f0796887fd6f46173a7b0d30f"},
+]
+
+[[package]]
 name = "pygments"
 version = "2.19.1"
 description = "Pygments is a syntax highlighting package written in Python."
@@ -1035,6 +1046,21 @@ watchdog = {version = ">=2.1.5,<7", markers = "platform_system != \"Darwin\""}
 snowflake = ["snowflake-connector-python (>=3.3.0)", "snowflake-snowpark-python[modin] (>=1.17.0)"]
 
 [[package]]
+name = "streamlit-audiorecorder"
+version = "0.0.6"
+description = "Audio recorder component for streamlit"
+optional = false
+python-versions = ">=3.6"
+files = [
+    {file = "streamlit_audiorecorder-0.0.6-py3-none-any.whl", hash = "sha256:a6f4fa16136d96ed8457768b9fe7e7745a3e1ba3fc50b85ad87b39f785e1a067"},
+    {file = "streamlit_audiorecorder-0.0.6.tar.gz", hash = "sha256:64b66c25b2b5e603cbea67b14074aaa7e93188913d7c83bbbc9f4d8ff237939d"},
+]
+
+[package.dependencies]
+pydub = ">=0.24"
+streamlit = ">=0.63"
+
+[[package]]
 name = "tenacity"
 version = "9.0.0"
 description = "Retry code until it succeeds"
@@ -1164,4 +1190,4 @@ watchmedo = ["PyYAML (>=3.10)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "9ebfd3d1e43fb6d1d43f2791d85c30490d7586bb72170631d54b7f111f8e13a3"
+content-hash = "83a0d6295aee8ebf95e178ce604cb75fa08666843ad68380b43f19967036ac29"

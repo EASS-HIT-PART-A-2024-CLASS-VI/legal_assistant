@@ -15,7 +15,3 @@ def create_sidebar(case_service: CaseService):
     cases(case_service)
     st.sidebar.page_link("pages/add_case.py", label="+Add")
     st.divider()
-    st.sidebar.page_link("pages/real_time_recording.py", label="Real time recording")
-    st.divider()
-    st.sidebar.markdown("**Avatar (Coming Soon)**")
-    st.divider()
