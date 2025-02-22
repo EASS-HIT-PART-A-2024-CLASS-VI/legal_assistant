@@ -2,11 +2,10 @@ import logging
 import os
 
 import streamlit as st
-
 from src.components.side_bar import create_sidebar
 from src.components.suggested_questions import suggested_questions
-from src.utils.logger import setup_logging
 from src.utils.case_service import CaseService
+from src.utils.logger import setup_logging
 from src.utils.utils import stream_data
 
 setup_logging()
@@ -16,10 +15,9 @@ FASTAPI_URI = os.getenv("FASTAPI_URI", "http://localhost:8000")
 
 st.set_page_config(
     page_title="Legal-Assistant",
-page_icon="images/logo.png",
+    page_icon="images/logo.png",
     layout="centered",
 )
-
 
 
 def main():
@@ -55,7 +53,9 @@ def main():
 
     if submit_button:
         with st.spinner("Processing request..."):
-            response = case_service.answer_question(user_question, st.session_state.selected_case, st.session_state.selected_mod)
+            response = case_service.answer_question(
+                user_question, st.session_state.selected_case, st.session_state.selected_mod
+            )
             if response.get("error"):
                 st.error("We are sorry something went wrong. Please try again later.")
                 st.stop()
@@ -72,7 +72,7 @@ if __name__ == "__main__":
         st.session_state.selected_case = ""
 
     if "selected_question" not in st.session_state:
-        st.session_state.selected_question = ''
+        st.session_state.selected_question = ""
 
     if "answer" not in st.session_state:
         st.session_state.answer = ""

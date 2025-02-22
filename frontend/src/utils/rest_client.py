@@ -1,7 +1,6 @@
 import logging
 
 import requests
-
 from src.utils.logger import setup_logging
 
 setup_logging()
@@ -32,7 +31,9 @@ class RestClient:
     def post(self, endpoint, data=None, json=None, files=None):
         try:
             logger.info(f"post request to  {endpoint}")
-            response = requests.post(f"{self.base_url}/{endpoint}", headers=self.headers, data=data, json=json, files=files)
+            response = requests.post(
+                f"{self.base_url}/{endpoint}", headers=self.headers, data=data, json=json, files=files
+            )
             response.raise_for_status()
             return response.json()
         except requests.exceptions.HTTPError as err:

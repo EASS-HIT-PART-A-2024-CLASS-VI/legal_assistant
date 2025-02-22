@@ -3,7 +3,6 @@ import os
 
 import streamlit as st
 from src.components.side_bar import create_sidebar
-
 from src.utils.case_service import CaseService
 from src.utils.logger import setup_logging
 
@@ -59,7 +58,10 @@ if submit_button_files:
             with st.spinner("Processing request..."):
                 logger.info(f"new_case_name - {new_case_name}")
                 logger.info(f"Creating case - {uploaded_files}")
-                files = [("files", (uploaded_file.name, uploaded_file, uploaded_file.type)) for uploaded_file in uploaded_files]
+                files = [
+                    ("files", (uploaded_file.name, uploaded_file, uploaded_file.type))
+                    for uploaded_file in uploaded_files
+                ]
                 response = case_service.upload_case(new_case_name, files)
                 logger.info(f"response - {response}")
                 if isinstance(response, dict):
