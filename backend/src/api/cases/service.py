@@ -2,6 +2,7 @@ import logging
 
 from fastapi import UploadFile
 from src.api.cases.consts import SUGGESTED_QUESTION
+from src.api.cases.model import Node, Relationship, GraphData
 from src.engine.loaders.file_extractor import DocxExtractor, PdfExtractor, TxtExtractor
 from src.utils.api_error_response import ApiErrorException
 from src.utils.logger import setup_logging
@@ -34,3 +35,29 @@ def get_suggested_questions(question: str) -> tuple[str, bool] | str:
         return suggested_question_text, True
 
     return question, False
+
+def transform_graph_data(raw_data) -> GraphData:
+    entities_dict = {}
+    relationships = []
+
+    for node_data, relation_data in raw_data:
+        node_id = str(node_data["node_id"])
+        if node_id not in entities_dict:
+            entities_dict[node_id] = Node(
+                labels=["ENTITY"],
+                id=node_id,
+                properties={k: v for k, v in node_data.items() if k != "embedding"}
+            )
+
+        relationships.append(
+            Relationship(
+                relation=relation_data.relation,
+                src_node=str(relation_data.src_node),
+                dest_node=str(relation_data.dest_node),
+            )
+        )
+
+    return GraphData(
+        relationships=relationships,
+        entities=list(entities_dict.values())
+    )

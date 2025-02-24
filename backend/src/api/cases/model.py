@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Dict
 
 from pydantic import BaseModel
 
@@ -27,3 +27,20 @@ class CasesListOutput(BaseModel):
 
 class UploadFileResponse(BaseModel):
     message: str = "Create case successfully"
+
+
+class Node(BaseModel):
+    labels: List[str]
+    id: str
+    properties: Dict
+
+
+class Relationship(BaseModel):
+    relation: str
+    src_node: str
+    dest_node: str
+
+
+class GraphData(BaseModel):
+    relationships: List[Relationship]
+    entities: List[Node]

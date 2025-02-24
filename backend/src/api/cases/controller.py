@@ -50,3 +50,17 @@ async def search(case_name: str, question: str, respond_mod: RagResponseMod):
         default_formatted_question = question_template.format(user_question=question)
         answer = rag_pipeline.query(kg_index=case, question=default_formatted_question, respond_mod=respond_mod)
     return answer.response
+
+
+async def delete(case_name: str, db_client: FalkorDBClient):
+    await db_client.delete(case_name)
+
+async def get_case(case_name: str, db_client: FalkorDBClient):
+    query = """
+    MATCH (n:ENTITY)
+    OPTIONAL MATCH (n)-[e]-(m)
+    RETURN n{.*, node_id: ID(n), embedding: NULL} AS n, e
+    LIMIT 100
+    """
+    res = await db_client.query(query, case_name)
+    return service.transform_graph_data(res)

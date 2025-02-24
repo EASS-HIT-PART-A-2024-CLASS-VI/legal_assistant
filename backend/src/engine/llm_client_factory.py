@@ -33,7 +33,7 @@ PLATFORM_MODELS = {
 }
 
 
-def get_client(platform: PlatformType = PlatformType.Gemini):
+def get_client(platform: PlatformType = PlatformType.OPENAI):
     client_conf = PLATFORM_MODELS.get(platform, {})["default_client"]
     match platform:
         case PlatformType.Gemini:
@@ -52,7 +52,7 @@ def get_client(platform: PlatformType = PlatformType.Gemini):
             raise Exception(f"Type platform client - {platform} is not supported")
 
 
-def get_embedding_client(platform: PlatformType = PlatformType.Gemini):
+def get_embedding_client(platform: PlatformType = PlatformType.OPENAI):
     embedding_conf = PLATFORM_MODELS.get(platform, {})["default_embedding"]
     match platform:
         case PlatformType.Gemini:
@@ -91,7 +91,7 @@ def __get_openai_embedding(model_name: str, model_mode: str, dimensions: int):
         model=model_name,
         mode=model_mode,
         dimensions=dimensions,
-        api_key=configuration.openai.api_key,
+        api_key=configuration.openai_api_key,
     )
 
 

@@ -77,4 +77,7 @@ if __name__ == "__main__":
     if "answer" not in st.session_state:
         st.session_state.answer = ""
 
+    if "is_main_page" not in st.session_state:
+        st.session_state.is_main_page = True
+
     main()

@@ -1,6 +1,6 @@
 import logging
 from dataclasses import dataclass
-from typing import List, Literal, Optional
+from typing import List, Optional
 
 import nest_asyncio
 from llama_index.core import Document, PromptTemplate, PropertyGraphIndex
@@ -56,17 +56,11 @@ class KnowledgeGraphCreator(KnowledgeGraphIndexBase):
         super().__init__(config)
 
     def create_kg_index(self) -> None:
-        entities_scheme = Literal[""]
-        relations_scheme = Literal[""]
-        kg_validation_schema = {"": []}
         kg_extractor = SchemaLLMPathExtractor(
             llm=self.information_extraction_llm,
             extract_prompt=self.kg_triplets_extract_template,
             num_workers=4,
             max_triplets_per_chunk=self.max_triplets_per_chunk,
-            possible_entities=entities_scheme,
-            possible_relations=relations_scheme,
-            kg_validation_schema=kg_validation_schema,
             strict=self.scheme_validation,
         )
         kg_index_kwargs = {"embed_kg_nodes": True}

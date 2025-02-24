@@ -7,7 +7,7 @@ from src.api.cases.model import (
     CasesListOutput,
     RagResultInput,
     RagResultOutPut,
-    UploadFileResponse,
+    UploadFileResponse, GraphData,
 )
 from src.env import configuration
 from src.utils.db_client import FalkorDBClient
@@ -46,3 +46,12 @@ async def list_cases(
 async def search(case_name: str, data: RagResultInput) -> RagResultOutPut:
     res = await controller.search(case_name, data.question, data.response_mod)
     return RagResultOutPut(answer=res)
+
+
+@router.delete("/{case_name}", status_code=HTTP_200_OK)
+async def delete_case(case_name: str, db_client=FalkorDBClient(host=configuration.falkordb_host, password=configuration.falkordb_password)):
+    await controller.delete(case_name, db_client)
+
+@router.get("/{case_name}", status_code=HTTP_200_OK)
+async def get_case(case_name: str, db_client=FalkorDBClient(host=configuration.falkordb_host, password=configuration.falkordb_password)) -> GraphData:
+    return await controller.get_case(case_name, db_client)

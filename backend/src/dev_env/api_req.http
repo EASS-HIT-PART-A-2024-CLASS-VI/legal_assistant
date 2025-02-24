@@ -12,7 +12,7 @@ Content-Type: multipart/form-data; boundary=WebAppBoundary
 --WebAppBoundary
 Content-Disposition: form-data; name="case_name"
 
-Example Case Name
+Mor123
 
 --WebAppBoundary
 Content-Disposition: form-data; name="files"; filename="Deposition of Emergency Room Nurse in Medical Malpractice Lawsuit.txt"
@@ -26,10 +26,18 @@ GET {{host}}/api/v1/cases/list_cases
 Accept: application/json
 
 ### serach case
-POST {{host}}/api/v1/cases/Example%20Case%20Name/search
+POST {{host}}/api/v1/cases/Mor123/search
 Content-Type: application/json
 
 {
     "question": "who is Tolson?",
     "response_mod": "tree_summarize"
 }
+
+### Get case(Graph)
+GET {{host}}/api/v1/cases/Mor
+Accept: application/json
+
+### Delete file
+DELETE {{host}}/api/v1/cases/Mor123
+Accept: application/json

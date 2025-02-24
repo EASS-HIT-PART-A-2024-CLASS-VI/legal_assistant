@@ -33,7 +33,7 @@ class CaseService:
 
     def get_graph(self, case_name: str):
         logger.info(f"Getting graph for case {case_name}")
-        endpoint = f"/graph/{case_name}"
+        endpoint = f"/api/v1/cases/{case_name}"
         response = self.rest_client.get(endpoint)
         return response
 
@@ -46,6 +46,6 @@ class CaseService:
 
     def delete_case(self, case_name: str):
         logger.info(f"Deleting case - {case_name}")
-        endpoint = f"/graph/{case_name}"
+        endpoint = f"/api/v1/cases/{case_name}"
         response = self.rest_client.delete(endpoint)
         return response
