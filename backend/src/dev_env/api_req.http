@@ -12,13 +12,13 @@ Content-Type: multipart/form-data; boundary=WebAppBoundary
 --WebAppBoundary
 Content-Disposition: form-data; name="case_name"
 
-Mor123
+Mo333
 
 --WebAppBoundary
 Content-Disposition: form-data; name="files"; filename="Deposition of Emergency Room Nurse in Medical Malpractice Lawsuit.txt"
-Content-Type: text/plain
+Content-Type: application/pdf
 
-< /Users/mordvash/mor/HIT/legal_assistant/backend/src/dev_env/Deposition of Emergency Room Nurse in Medical Malpractice Lawsuit.txt
+< /Users/mordvash/mor/HIT/legal_assistant/backend/src/dev_env/Answer.pdf
 --WebAppBoundary
 
 ### List all cases
