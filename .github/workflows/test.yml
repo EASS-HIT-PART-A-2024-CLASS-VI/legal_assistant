@@ -32,6 +32,11 @@ jobs:
 
       - name: Run pytest
         working-directory: backend
+        env:
+          OPENAI_API_KEY: "test_openai_key"
+          GEMINI_KEY: "test_gemini_key"
+          FALKORDB_PASSWORD: "test_password"
+          FALKORDB_RAG_URI: "test_uri"
         run: |
             # List the contents to verify the structure
             echo "Contents of unit_tests directory:"
