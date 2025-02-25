@@ -28,14 +28,14 @@ jobs:
           pip install --upgrade pip
           pip install poetry==1.7.0
           poetry config virtualenvs.create false
-          poetry install --no-interaction --with dev
+          poetry install --no-interaction
 
       - name: Run pytest
         working-directory: backend
         run: |
-          # List the contents to verify the structure
-          echo "Contents of unit_tests directory:"
-          ls -la tests/unit_tests/
-          
-          # Run pytest with the correct path
-          python -m pytest tests/unit_tests
+            # List the contents to verify the structure
+            echo "Contents of unit_tests directory:"
+            ls -la tests/unit_tests/
+            
+            # Run pytest with the correct path
+            python -m pytest tests/unit_tests
