@@ -29,6 +29,9 @@ def main():
         "compact": "Like refine, but faster",
         "tree_summarize": "Good for summarization purposes ",
     }
+    if not st.session_state.cases:
+        logger.info(f"No cases selected. Please select a case.")
+        st.switch_page("pages/add_case.py")
 
     methods = ["tree_summarize", "compact", "refine"]
 
@@ -61,7 +64,7 @@ def main():
                 st.stop()
             st.session_state.answer = response["answer"]
 
-    st.write_stream(stream_data)
+    st.write(st.session_state.answer)
 
 
 if __name__ == "__main__":
@@ -79,5 +82,8 @@ if __name__ == "__main__":
 
     if "is_main_page" not in st.session_state:
         st.session_state.is_main_page = True
+
+    if "cases" not in st.session_state:
+        st.session_state.cases = []
 
     main()

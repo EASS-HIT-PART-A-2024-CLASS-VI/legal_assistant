@@ -26,8 +26,9 @@ def cases(case_service: CaseService):
 
     st.subheader("Cases")
 
-    if "cases" not in st.session_state:
-        st.session_state.cases = case_service.get_names_cases().get("cases", [])
+    if not st.session_state.cases:
+        st.session_state.cases = case_service.get_names_cases().get("cases", '')
+        logger.info(f"cases- {st.session_state.cases}")
 
     if st.session_state.selected_case == "":
         if len(st.session_state.cases) > 0:
