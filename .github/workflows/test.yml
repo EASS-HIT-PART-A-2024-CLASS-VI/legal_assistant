@@ -1,28 +1,35 @@
-name: test
+name: pytest
 
 on: [push]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
 
-      - uses: actions/setup-python@v4
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
           python-version: 3.12
+          cache: 'pip'
 
-      - name: cache poetry install
+      - name: Cache Poetry dependencies
         uses: actions/cache@v3
         with:
-          path: ~/.local
-          key: poetry-3.12
+          path: ~/.cache/pypoetry
+          key: ${{ runner.os }}-poetry-${{ hashFiles('**/poetry.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-poetry-
 
-      - name: Install tox & poetry
+      - name: Install dependencies
         working-directory: backend
         run: |
           pip install --upgrade pip
           pip install poetry==1.7.0
-          pip install tox
-      - name: run tests
-        run: tox
+          poetry config virtualenvs.create false
+          poetry install --no-interaction
+
+      - name: Run pytest
+        working-directory: backend
+        run: python -m pytest tests/unit_tests -v
