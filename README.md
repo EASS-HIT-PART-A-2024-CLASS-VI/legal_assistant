@@ -73,6 +73,23 @@ Frontend
 FASTAPI_URI=http://backend:8000
 ```
 
+## Test
+Unit test are running on the CI but you can run them locally.
+```bash
+cd backend
+pytest tests/unit_tests 
+```
+For Integration test follow this - 
+```bash
+cd backend/src/dev_env
+docker compose -f docker-compose.dev.yml up
+```
+New terminal -
+```bash
+cd backend
+pytest tests/integration
+```
+
 # Documentation
 
 Further Documentation can be found in the  [docs](docs) folder where you can find:
