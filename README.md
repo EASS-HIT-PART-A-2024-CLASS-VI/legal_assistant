@@ -29,14 +29,11 @@ legal_assistant/
 ![Project Structure](docs/diagrams/overview.png)
 
 **GraphRAG architecture:**
-<p align="center">
-  <img src="docs/diagrams/graphrag_architecture.png" style="background:white; padding:10px;">
-</p>
+![Project Structure](docs/diagrams/graphrag_architecture.png)
 
 **Generating Knowledge Graph from Documents**
-<p align="center">
-  <img src="docs/diagrams/knowledge_graph_from_documents.png" style="background:white; padding:10px;">
-</p>
+![Project Structure](docs/diagrams/knowledge_graph_from_documents.png)
+
 
 ## Installation
 
