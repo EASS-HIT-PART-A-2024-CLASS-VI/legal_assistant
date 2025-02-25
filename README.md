@@ -60,6 +60,18 @@ docker compose up --build
 
 legal_assistant Application is on the air: http://localhost:8501
 
+## Environment Variables
+Backend
+```bash
+FALKORDB_RAG_URI=falkor://:falkordb@graphdb:6379
+FALKORDB_HOST=graphdb
+FALKORDB_PASSWORD=falkordb
+OPENAI_API_KEY=secret_key
+```
+Frontend
+```bash
+FASTAPI_URI=http://backend:8000
+```
 
 # Documentation
 
