@@ -4,6 +4,11 @@
 ## Overview
 
 The Legal Assistant System is designed to assist legal professionals in efficiently analyzing legal cases. By uploading a legal document, users can query the system and receive answers based on the content of the case file. The system employs an advanced Retrieval-Augmented Generation (RAG) architecture in the backend, enhancing the accuracy and relevance of the responses provided by the Language Model (LLM).
+
+## Demo
+[![Legal Assistant](docs/ui.png)](https://www.youtube.com/watch?v=I5XRJoJ1XX4)
+
+
 ## Tech Stack
 
 **Client:** Streamlit
